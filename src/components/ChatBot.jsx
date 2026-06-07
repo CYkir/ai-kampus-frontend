@@ -105,7 +105,7 @@ const ChatBox = ({ selectedSessionId }) => {
   };
 
   return (
-    <div className="flex h-[calc(100vh-40px)] w-full flex-col overflow-hidden rounded-3xl bg-white/70 shadow-xl ring-1 ring-black/5 backdrop-blur-xl">
+    <div className="flex h-[calc(100vh-40px)] w-full flex-col overflow-hidden ">
       <div ref={chatRef} className="flex-1 overflow-y-auto">
         {messages.length === 0 ? (
           <WelcomeChatState onPick={handleSend} />
