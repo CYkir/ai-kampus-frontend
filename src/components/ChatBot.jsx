@@ -13,6 +13,7 @@ import TypingIndicator from "./chat/TypingIndicator";
 const ChatBox = ({ selectedSessionId }) => {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [sessionLoading, setSessionLoading] = useState(false);
 
   const chatRef = useRef(null);
 
@@ -24,33 +25,48 @@ const ChatBox = ({ selectedSessionId }) => {
   }, [messages.length, loading]);
 
   useEffect(() => {
-    if (!selectedSessionId) return;
+    if (!selectedSessionId) {
+      setMessages([]);
+      setLoading(false);
+      setSessionLoading(false);
+      return;
+    }
 
     handleOpenSession(selectedSessionId);
   }, [selectedSessionId]);
 
   const handleOpenSession = async (sessionId) => {
-    const result = await getChatSessionDetail(sessionId);
+    setSessionLoading(true);
 
-    if (!result.success) {
-      console.log(result.message);
-      return;
+    try {
+      const result = await getChatSessionDetail(sessionId);
+
+      if (!result.success) {
+        console.log(result.message);
+        setMessages([]);
+        return;
+      }
+
+      const formattedMessages = result.data.messages.map((msg) => ({
+        id: msg.id,
+        role: msg.role === "assistant" ? "bot" : "user",
+        text: msg.message,
+        time: msg.created_at,
+        animate: false,
+      }));
+
+      localStorage.setItem("active_session_id", sessionId);
+      setMessages(formattedMessages);
+    } catch (error) {
+      console.error("OPEN SESSION ERROR:", error);
+      setMessages([]);
+    } finally {
+      setSessionLoading(false);
     }
-
-    const formattedMessages = result.data.messages.map((msg) => ({
-      id: msg.id,
-      role: msg.role === "assistant" ? "bot" : "user",
-      text: msg.message,
-      time: msg.created_at,
-      animate: false,
-    }));
-
-    localStorage.setItem("active_session_id", sessionId);
-    setMessages(formattedMessages);
   };
 
   const handleSend = async (text) => {
-    if (!text.trim() || loading) return;
+    if (!text.trim() || loading || sessionLoading) return;
 
     const userMessage = {
       id: Date.now(),
@@ -72,6 +88,10 @@ const ChatBox = ({ selectedSessionId }) => {
           text,
           activeSessionId ? Number(activeSessionId) : null,
         );
+
+        if (res?.session_id) {
+          localStorage.setItem("active_session_id", res.session_id);
+        }
 
         if (res?.authExpired) {
           res = await sendPublicMessage(text);
@@ -105,9 +125,14 @@ const ChatBox = ({ selectedSessionId }) => {
   };
 
   return (
-    <div className="flex h-[calc(100vh-40px)] w-full flex-col overflow-hidden ">
+    <div className="flex h-[calc(100vh-40px)] w-full flex-col overflow-hidden">
       <div ref={chatRef} className="flex-1 overflow-y-auto">
-        {messages.length === 0 ? (
+        {sessionLoading ? (
+          <div className="flex h-full flex-col items-center justify-center gap-3">
+            <div className="h-10 w-10 animate-spin rounded-full border-4 border-primary/20 border-t-primary" />
+            <p className="text-sm text-gray-500">Memuat isi chat...</p>
+          </div>
+        ) : messages.length === 0 ? (
           <WelcomeChatState onPick={handleSend} />
         ) : (
           <div className="mx-auto max-w-3xl space-y-5 px-4 py-6 sm:px-6">
@@ -120,7 +145,7 @@ const ChatBox = ({ selectedSessionId }) => {
         )}
       </div>
 
-      <ChatInput onSend={handleSend} disabled={loading} />
+      <ChatInput onSend={handleSend} disabled={loading || sessionLoading} />
     </div>
   );
 };

@@ -4,18 +4,17 @@ import { ChevronUp, LogIn, LogOut, Plus, Settings, User } from "lucide-react";
 import { ExternalLinkButton } from "../../components/chat/ExternalLinkButton";
 import ButtonLogin from "../../components/ui/ButtonLogin";
 import ProfileModal from "../../components/profile/ProfileModal";
-
-import {
-  getCurrentRole,
-  getCurrentUser,
-  isLoggedIn,
-  logout,
-} from "../../api/authApi";
+import CircularLoading from "../../components/ui/CircularLoading";
 
 const SideBar = ({
+  profile = null,
+  role = null,
+  authLoading = false,
   onLoginClick,
+  onLogout,
   onNewChat,
   sessions = [],
+  sessionsLoading = false,
   activeId = null,
   onSelectSession,
   onDeleteSession,
@@ -25,10 +24,8 @@ const SideBar = ({
 
   const [userMenu, setUserMenu] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
-  const [profile, setProfile] = useState(getCurrentUser());
-  const [role, setRole] = useState(getCurrentRole());
 
-  const loggedIn = isLoggedIn() && profile;
+  const loggedIn = Boolean(profile);
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -44,17 +41,10 @@ const SideBar = ({
     };
   }, []);
 
-  function refreshProfile() {
-    setProfile(getCurrentUser());
-    setRole(getCurrentRole());
-  }
-
   function handleLogout() {
-    logout();
-    setProfile(null);
-    setRole(null);
     setUserMenu(false);
     setProfileOpen(false);
+    onLogout?.();
   }
 
   function getDisplayName() {
@@ -110,13 +100,20 @@ const SideBar = ({
             </div>
           )}
 
-          {loggedIn && sessions.length === 0 && (
+          {loggedIn && sessionsLoading && (
+            <div className="h-40">
+              <CircularLoading text="Mengambil riwayat chat..." />
+            </div>
+          )}
+
+          {loggedIn && !sessionsLoading && sessions.length === 0 && (
             <div className="px-3 py-6 text-center text-xs text-sidebar-foreground/60">
               Belum ada riwayat chat.
             </div>
           )}
 
           {loggedIn &&
+            !sessionsLoading &&
             sessions.map((session) => (
               <div
                 key={session.id}
@@ -161,7 +158,12 @@ const SideBar = ({
             />
           </div>
 
-          {!loggedIn ? (
+          {authLoading ? (
+            <div className="flex w-full items-center justify-center gap-3 rounded-xl border border-gold/30 bg-gold/10 px-3 py-3 text-sm font-semibold text-gold">
+              <div className="h-4 w-4 animate-spin rounded-full border-2 border-gold/30 border-t-gold" />
+              Memuat akun...
+            </div>
+          ) : !loggedIn ? (
             <ButtonLogin
               bgColor="bg-gold-30"
               type="button"

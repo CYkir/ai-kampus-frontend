@@ -47,10 +47,10 @@ export default function ModalLogin({ onClose, onLoginSuccess }) {
       setPassword("");
 
       if (onLoginSuccess) {
-        onLoginSuccess(result);
+        await onLoginSuccess(result);
+      } else {
+        onClose();
       }
-
-      onClose();
     } catch (err) {
       console.error("MODAL LOGIN ERROR:", err);
       setError("Terjadi kesalahan saat login.");
