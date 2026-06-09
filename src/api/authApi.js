@@ -1,8 +1,9 @@
 import axiosClient from "./axiosClient";
 
+
 export const loginStudent = async ({ nim, password }) => {
   try {
-    const response = await axiosClient.post("/api/student/login", {
+    const response = await axiosClient.post("/auth/student/login", {
       nim,
       password,
     });
@@ -30,7 +31,7 @@ export const loginStudent = async ({ nim, password }) => {
 
 export const loginLecturer = async ({ nidn, password }) => {
   try {
-    const response = await axiosClient.post("/api/lecturer/login", {
+    const response = await axiosClient.post("/auth/lecturer/login", {
       nidn,
       password,
     });
