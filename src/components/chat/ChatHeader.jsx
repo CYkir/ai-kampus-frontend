@@ -1,71 +1,63 @@
 import { Menu, LogIn } from "lucide-react";
 import ButtonLogin from "../ui/ButtonLogin";
-// import { useChat } from "@/lib/chat-store";
-// import { LogoPlaceholder } from "./LogoPlaceholder";
 
-export function ChatHeader({
-  onMenu,
-  // onLogin,
-  // onProfile
-}) {
-  // const { profile } = useChat();
-
+export function ChatHeader({ onMenu, onLoginClick, profile }) {
   return (
-    <header className="flex items-center gap-3 border-b border-border/60 bg-background/60 backdrop-blur-md px-4 py-3 sm:px-6">
+    <header className="flex items-center gap-3 border-b border-border/60 bg-background/60 px-4 py-3 backdrop-blur-md sm:px-6">
       <button
+        type="button"
         onClick={onMenu}
-        className="lg:hidden flex h-10 w-10 items-center justify-center rounded-xl hover:bg-accent transition-colors"
+        onClick={() => {
+          console.log("HAMBURGER DIKLIK");
+          onMenu?.();
+        }}
+        className="flex h-10 w-10 items-center justify-center rounded-xl transition-colors hover:bg-accent lg:hidden"
         aria-label="Buka menu"
       >
         <Menu className="h-5 w-5" />
       </button>
 
-      <div className="lg:hidden">{/* <LogoPlaceholder size={36} /> */}</div>
-
-      <div className="flex justify-around w-full align-middle">
-        <div className="flex-1 min-w-0">
+      <div className="flex w-full items-center justify-between">
+        <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2">
-            <h1 className="truncate text-sm sm:text-base font-bold text-foreground">
+            <h1 className="truncate text-sm font-bold text-foreground sm:text-base">
               AI Kampus Assistant
             </h1>
 
-            <span className="hidden sm:inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 px-2 py-0.5 text-[10px] font-semibold text-emerald-600 ring-1 ring-emerald-500/20">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="hidden items-center gap-1.5 rounded-full bg-emerald-500/10 px-2 py-0.5 text-[10px] font-semibold text-emerald-600 ring-1 ring-emerald-500/20 sm:inline-flex">
+              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-500" />
               Online
             </span>
           </div>
 
-          <p className=" sm:block text-xs text-muted-foreground truncate">
+          <p className="truncate text-xs text-muted-foreground">
             Asisten digital Universitas Prima Indonesia
           </p>
         </div>
-        <div className=" block sm:hidden">
-          <ButtonLogin
-            textColor="text-white"
-            border="none"
-            hoverBg="bg-amber-400"
-            text=""
-          />
+
+        <div className="block sm:hidden">
+          {profile ? (
+            <button
+              type="button"
+              onClick={onMenu}
+              className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-sm font-bold text-white"
+            >
+              {(profile.nama || profile.name || "U").charAt(0).toUpperCase()}
+            </button>
+          ) : (
+            <ButtonLogin
+              type="button"
+              onClick={onLoginClick}
+              textColor="text-white"
+              border="none"
+              hoverBg="bg-amber-400"
+              text=""
+            >
+              <LogIn className="h-4 w-4" />
+            </ButtonLogin>
+          )}
         </div>
       </div>
-
-      {/* {profile ? (
-        <button
-          // onClick={onProfile}
-          className="flex h-10 w-10 items-center justify-center rounded-full brand-gradient text-white font-semibold text-sm ring-2 ring-gold/40 shadow-[var(--shadow-soft)]"
-          aria-label="Profil"
-        >
-          {profile.nama.charAt(0)}
-        </button>
-      ) : (
-        <button
-          onClick={onLogin}
-          className="inline-flex items-center gap-1.5 rounded-xl bg-primary px-3 py-2 text-xs sm:text-sm font-semibold text-primary-foreground hover:opacity-90 transition-opacity"
-        >
-          <LogIn className="h-4 w-4" />
-          Login
-        </button>
-      )} */}
     </header>
   );
 }
