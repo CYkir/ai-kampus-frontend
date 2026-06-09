@@ -18,7 +18,7 @@ const SideBar = () => {
               <div className="text-sm font-semibold">AI Kampus Assistant</div>
             </div>
           </div>
-          <button className="flex w-full items-center justify-center gap-2 rounded-2xl bg-gold px-4 py-3 text-sm font-semibold text-gold-foreground shadow-[0_8px_20px_-8px_oklch(0.88_0.18_95/0.7)] transition-transform hover:scale-[1.02]">
+          <button className="flex w-full items-center justify-center gap-2 rounded-lg bg-gold px-4 py-3 text-sm font-semibold text-gold-foreground  transition-transform hover:scale-[1.02]">
             {" "}
             <Plus className="h-4 w-4" /> New Chat
           </button>

@@ -45,7 +45,7 @@ export default function ModalLogin({ onClose }) {
       <div className="absolute inset-0" onClick={onClose} />
 
       <div
-        className="relative w-full max-w-[490px] rounded-[30px] border border-white/50 bg-white/55 px-7 pb-7 pt-7 shadow-2xl backdrop-blur-2xl"
+        className="relative w-full max-w-[490px] rounded-[30px] border border-white/50 bg-white/55 px-7 pb-7 pt-7 shadow-xl backdrop-blur-2xl"
         style={{ zIndex: 1000000 }}
         onClick={(e) => e.stopPropagation()}
       >
@@ -121,7 +121,7 @@ export default function ModalLogin({ onClose }) {
 
           <button
             type="submit"
-            className="mt-2 h-[47px] w-full rounded-full bg-[linear-gradient(135deg,#4b006e_0%,#5f008b_45%,#f2cf3a_100%)] text-[15px] font-bold text-white shadow-[0_12px_25px_rgba(75,0,110,0.25)] transition hover:cursor-pointer hover:opacity-95"
+            className="mt-2 h-[47px] w-full rounded-full bg-primary text-[15px] font-bold text-white shadow-[0_12px_25px_rgba(75,0,110,0.25)] transition hover:cursor-pointer hover:opacity-95"
           >
             Login sebagai {isMahasiswa ? "Mahasiswa" : "Dosen"}
           </button>
