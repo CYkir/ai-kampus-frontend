@@ -1,11 +1,12 @@
 import { Menu, LogIn } from "lucide-react";
+import ButtonLogin from "../ui/ButtonLogin";
 // import { useChat } from "@/lib/chat-store";
 // import { LogoPlaceholder } from "./LogoPlaceholder";
 
-export function ChatHeader({ 
-  onMenu
-  // onLogin, 
-  // onProfile 
+export function ChatHeader({
+  onMenu,
+  // onLogin,
+  // onProfile
 }) {
   // const { profile } = useChat();
 
@@ -19,25 +20,33 @@ export function ChatHeader({
         <Menu className="h-5 w-5" />
       </button>
 
-      <div className="lg:hidden">
-        {/* <LogoPlaceholder size={36} /> */}
-      </div>
+      <div className="lg:hidden">{/* <LogoPlaceholder size={36} /> */}</div>
 
-      <div className="flex-1 min-w-0">
-        <div className="flex items-center gap-2">
-          <h1 className="truncate text-sm sm:text-base font-bold text-foreground">
-            AI Kampus Assistant
-          </h1>
+      <div className="flex justify-around w-full align-middle">
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-2">
+            <h1 className="truncate text-sm sm:text-base font-bold text-foreground">
+              AI Kampus Assistant
+            </h1>
 
-          <span className="hidden sm:inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 px-2 py-0.5 text-[10px] font-semibold text-emerald-600 ring-1 ring-emerald-500/20">
-            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
-            Online
-          </span>
+            <span className="hidden sm:inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 px-2 py-0.5 text-[10px] font-semibold text-emerald-600 ring-1 ring-emerald-500/20">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              Online
+            </span>
+          </div>
+
+          <p className=" sm:block text-xs text-muted-foreground truncate">
+            Asisten digital Universitas Prima Indonesia
+          </p>
         </div>
-
-        <p className="hidden sm:block text-xs text-muted-foreground truncate">
-          Asisten digital Universitas Prima Indonesia
-        </p>
+        <div className=" block sm:hidden">
+          <ButtonLogin
+            textColor="text-white"
+            border="none"
+            hoverBg="bg-amber-400"
+            text=""
+          />
+        </div>
       </div>
 
       {/* {profile ? (

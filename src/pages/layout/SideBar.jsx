@@ -1,6 +1,7 @@
 import { Icon } from "@iconify/react";
-import { Plus } from "lucide-react";
+import { LogIn, Plus } from "lucide-react";
 import { ExternalLinkButton } from "../../components/chat/ExternalLinkButton";
+import ButtonLogin from "../../components/ui/ButtonLogin";
 
 const SideBar = () => {
   return (
@@ -122,6 +123,12 @@ const SideBar = () => {
               )}
             </div>
           )} */}
+
+          <ButtonLogin
+          text="Login"
+          bgColor="none"
+
+          />
         </div>
       </aside>
     </>
