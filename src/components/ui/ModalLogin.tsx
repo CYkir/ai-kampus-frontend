@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { createPortal } from "react-dom";
-
+import logoUnpri from '../../assets/image/logo_unpri.png'
 export default function ModalLogin({ onClose }) {
   const [tab, setTab] = useState("mahasiswa");
   const [id, setId] = useState("");
@@ -50,8 +50,8 @@ export default function ModalLogin({ onClose }) {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex flex-col items-center text-center">
-          <div className="flex h-[62px] w-[62px] items-center justify-center rounded-full bg-[#ffd21c] text-sm font-black text-black shadow-[0_15px_35px_rgba(255,210,28,0.45)]">
-            LOGO
+          <div className="flex h-[120px] w-[120px] items-center justify-center text-sm font-black text-black ">
+            <img src={logoUnpri} alt="" />
           </div>
 
           <h2 className="mt-5 text-[22px] font-extrabold tracking-tight text-[#151127]">
