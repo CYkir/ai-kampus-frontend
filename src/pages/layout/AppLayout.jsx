@@ -101,10 +101,10 @@ const AppLayout = () => {
 
     const result = await deleteChatSession(sessionId);
 
-    if (!result?.success) {
-      alert(result?.message || "Gagal menghapus session.");
-      return;
-    }
+    // if (!result?.success) {
+    //   alert(result?.message || "Gagal menghapus session.");
+    //   return;
+    // }
 
     setSessions((prev) => prev.filter((session) => session.id !== sessionId));
 
