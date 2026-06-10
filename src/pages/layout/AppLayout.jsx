@@ -147,7 +147,6 @@ const AppLayout = () => {
             className="absolute inset-0 bg-black/45 backdrop-blur-sm"
             onClick={() => setMobileSidebarOpen(false)}
           />
-
           <div className="absolute left-0 top-0 h-full w-[82vw] max-w-[330px] animate-[slideInLeft_0.22s_ease-out] shadow-2xl">
             <SideBar {...sidebarProps} />
           </div>

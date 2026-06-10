@@ -12,7 +12,6 @@ const Navbar = () => {
             <div className="bg-secondary text-white px-6 py-2 rounded-full text-lg font-medium  hover:cursor-pointer">
               Chat
             </div>
-
             {/* Inactive */}
             <div className="text-gray-500 px-5 py-2 text-lg font-lato  hover:cursor-pointer">
               Kontak
