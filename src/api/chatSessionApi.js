@@ -84,19 +84,31 @@ export const deleteChatSession = async (sessionId) => {
       },
     );
 
+    console.log("DELETE SESSION RESPONSE:", response.status, response.data);
+
     const activeSessionId = localStorage.getItem("active_session_id");
 
     if (String(activeSessionId) === String(sessionId)) {
       localStorage.removeItem("active_session_id");
     }
 
-    return response.data;
+    return {
+      success: true,
+      message: response.data?.message || "Session chat berhasil dihapus",
+      data: response.data,
+    };
   } catch (error) {
     console.error("DELETE SESSION ERROR:", error);
+    console.error("DELETE SESSION STATUS:", error?.response?.status);
+    console.error("DELETE SESSION DATA:", error?.response?.data);
 
     return {
       success: false,
-      message: error?.response?.data?.detail || "Gagal menghapus session chat.",
+      status: error?.response?.status,
+      message:
+        error?.response?.data?.detail ||
+        error?.response?.data?.message ||
+        "Gagal menghapus session chat.",
     };
   }
 };

@@ -10,7 +10,7 @@ import ChatBubble from "./chat/ChatBubble";
 import ChatInput from "./chat/ChatInput";
 import TypingIndicator from "./chat/TypingIndicator";
 
-const ChatBox = ({ selectedSessionId }) => {
+const ChatBox = ({ selectedSessionId, onSessionChange, onRefreshSessions }) => {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [sessionLoading, setSessionLoading] = useState(false);
@@ -91,6 +91,9 @@ const ChatBox = ({ selectedSessionId }) => {
 
         if (res?.session_id) {
           localStorage.setItem("active_session_id", res.session_id);
+
+          onSessionChange?.(res.session_id);
+          onRefreshSessions?.();
         }
 
         if (res?.authExpired) {

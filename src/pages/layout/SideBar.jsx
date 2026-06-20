@@ -1,5 +1,15 @@
 import { useEffect, useRef, useState } from "react";
-import { ChevronUp, LogIn, LogOut, Plus, Settings, User } from "lucide-react";
+import {
+  ChevronUp,
+  LogIn,
+  LogOut,
+  Plus,
+  Settings,
+  User,
+  MoreVertical,
+  Trash2,
+  MessageSquare,
+} from "lucide-react";
 
 import { ExternalLinkButton } from "../../components/chat/ExternalLinkButton";
 import ButtonLogin from "../../components/ui/ButtonLogin";
@@ -21,16 +31,25 @@ const SideBar = ({
   onItemClick,
 }) => {
   const menuRef = useRef(null);
+  const sessionMenuRef = useRef(null);
 
   const [userMenu, setUserMenu] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
 
   const loggedIn = Boolean(profile);
+  const [sessionMenuId, setSessionMenuId] = useState(null);
 
   useEffect(() => {
     function handleClickOutside(event) {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
         setUserMenu(false);
+      }
+
+      if (
+        sessionMenuRef.current &&
+        !sessionMenuRef.current.contains(event.target)
+      ) {
+        setSessionMenuId(null);
       }
     }
 
@@ -81,13 +100,14 @@ const SideBar = ({
           <button
             type="button"
             onClick={onNewChat}
-            className="flex w-full items-center justify-center gap-2 rounded-lg bg-gold px-4 py-3 text-sm font-semibold text-gold-foreground transition-transform hover:scale-[1.02]"
+            className="flex w-full items-center justify-center gap-2 rounded-lg bg-gold px-4 py-3 text-sm font-semibold text-gold-foreground transition-transform hover:scale-[1.02] hover:cursor-pointer"
           >
             <Plus className="h-4 w-4" />
             New Chat
           </button>
         </div>
 
+        {/* History */}
         {/* History */}
         <div className="flex-1 space-y-1 overflow-y-auto px-2 py-3">
           <div className="px-3 py-1 text-[10px] font-semibold uppercase tracking-widest text-sidebar-foreground/50">
@@ -107,7 +127,7 @@ const SideBar = ({
           )}
 
           {loggedIn && !sessionsLoading && sessions.length === 0 && (
-            <div className="px-3 py-6 text-center text-xs text-sidebar-foreground/60">
+            <div className="px-3 py-6 text-center text-xs text-sidebar-foreground/60 hover:cursor-pointer">
               Belum ada riwayat chat.
             </div>
           )}
@@ -117,8 +137,8 @@ const SideBar = ({
             sessions.map((session) => (
               <div
                 key={session.id}
-                className={`group flex items-center gap-2 rounded-xl px-3 py-2 text-sm transition ${
-                  session.id === activeId
+                className={`group relative flex items-center gap-2 rounded-xl px-3 py-2 text-sm transition ${
+                  String(session.id) === String(activeId)
                     ? "bg-sidebar-accent text-sidebar-foreground"
                     : "hover:bg-sidebar-accent/70"
                 }`}
@@ -129,17 +149,25 @@ const SideBar = ({
                     onSelectSession?.(session.id);
                     onItemClick?.();
                   }}
-                  className="min-w-0 flex-1 truncate text-left"
+                  className="flex min-w-0 flex-1 items-center gap-2 text-left"
                 >
-                  {session.title || "New Chat"}
+                  <MessageSquare className="h-4 w-4 shrink-0 text-sidebar-foreground/60" />
+
+                  <span className="truncate">
+                    {session.title || "New Chat"}
+                  </span>
                 </button>
 
                 <button
                   type="button"
-                  onClick={() => onDeleteSession?.(session.id)}
-                  className="hidden rounded-lg px-2 py-1 text-xs text-red-400 hover:bg-red-500/10 group-hover:block"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onDeleteSession?.(session);
+                  }}
+                  className="rounded-lg p-1 text-sidebar-foreground/50 opacity-0 transition  hover:text-red-500 group-hover:opacity-100 hover:cursor-pointer"
+                  title="Hapus chat"
                 >
-                  Hapus
+                  <Trash2 className="h-4 w-4" />
                 </button>
               </div>
             ))}

@@ -48,7 +48,7 @@ const ChatInput = ({ onSend, disabled }) => {
           <button
             type="submit"
             disabled={!value.trim() || disabled}
-            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl brand-gradient text-white shadow-[var(--shadow-soft)] disabled:opacity-40 disabled:cursor-not-allowed transition-transform hover:scale-105 disabled:hover:scale-100"
+            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-primary text-white shadow-[var(--shadow-soft)] disabled:opacity-40 disabled:cursor-not-allowed transition-transform hover:scale-105 disabled:hover:scale-100"
             aria-label="Kirim"
           >
             <ArrowUp className="h-5 w-5" />
@@ -58,7 +58,7 @@ const ChatInput = ({ onSend, disabled }) => {
 
       <p className="mx-auto mt-2 max-w-3xl text-center text-[11px] text-gray-400">
         AI dapat membuat kesalahan. Verifikasi informasi penting melalui layanan
-        resmi kampus.
+        resmi kampus, terimakasih.
       </p>
     </div>
   );

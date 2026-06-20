@@ -16,23 +16,13 @@ const ChatBubble = ({ message }) => {
   const [displayedText, setDisplayedText] = useState("");
 
   const isUser = message.role === "user";
+  const shouldAnimate = !isUser && message.animate !== false;
 
   useEffect(() => {
-    if (isUser) {
-      setDisplayedText(message.text);
-      return;
-    }
-
-    // Kalau tidak mau animasi, langsung tampilkan full text
-    if (message.animate === false) {
-      setDisplayedText(message.text);
-      return;
-    }
+    if (!shouldAnimate) return;
 
     const words = message.text.split(" ");
     let index = 0;
-
-    setDisplayedText("");
 
     const interval = setInterval(() => {
       index += 1;
@@ -42,10 +32,10 @@ const ChatBubble = ({ message }) => {
       if (index >= words.length) {
         clearInterval(interval);
       }
-    }, 45); // kecepatan animasi per kata
+    }, 45);
 
     return () => clearInterval(interval);
-  }, [message.text, message.animate, isUser]);
+  }, [message.id, message.text, shouldAnimate]);
 
   async function copyMessage() {
     await navigator.clipboard.writeText(message.text);
@@ -60,7 +50,7 @@ const ChatBubble = ({ message }) => {
     return (
       <div className="flex justify-end">
         <div className="max-w-[85%] sm:max-w-[75%]">
-          <div className="user-bubble-gradient rounded-3xl rounded-tr-md px-4 py-3 text-white shadow-[var(--shadow-soft)]">
+          <div className="rounded-3xl rounded-tr-md bg-[#4b006e] px-4 py-3 text-white shadow-[var(--shadow-soft)]">
             <p className="whitespace-pre-wrap text-sm leading-relaxed">
               {message.text}
             </p>
@@ -74,6 +64,8 @@ const ChatBubble = ({ message }) => {
     );
   }
 
+  const botText = shouldAnimate ? displayedText : message.text;
+
   return (
     <div className="flex gap-3">
       <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-2xl brand-gradient text-white shadow-[var(--shadow-soft)]">
@@ -83,8 +75,8 @@ const ChatBubble = ({ message }) => {
       <div className="max-w-[85%] sm:max-w-[75%]">
         <div className="glass rounded-3xl rounded-tl-md px-4 py-3 shadow-[var(--shadow-soft)]">
           <p className="whitespace-pre-wrap text-sm leading-relaxed text-gray-800">
-            {displayedText}
-            {displayedText.length < message.text.length && (
+            {botText}
+            {shouldAnimate && botText.length < message.text.length && (
               <span className="ml-0.5 inline-block h-4 w-[2px] translate-y-0.5 animate-pulse bg-gray-500" />
             )}
           </p>
