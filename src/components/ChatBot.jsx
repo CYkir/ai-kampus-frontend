@@ -128,7 +128,7 @@ const ChatBox = ({ selectedSessionId, onSessionChange, onRefreshSessions }) => {
   };
 
   return (
-    <div className="flex h-[calc(100vh-40px)] w-full flex-col overflow-hidden">
+    <div className="relative flex h-[calc(100vh-40px)] w-full flex-col overflow-hidden bg-[radial-gradient(circle_at_top_right,rgba(255,214,0,0.16),transparent_25%),radial-gradient(circle_at_center,rgba(126,34,206,0.10),transparent_38%),linear-gradient(180deg,#fbf7ff_0%,#f7f0ff_100%)]">
       <div ref={chatRef} className="flex-1 overflow-y-auto">
         {sessionLoading ? (
           <div className="flex h-full flex-col items-center justify-center gap-3">

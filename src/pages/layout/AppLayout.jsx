@@ -178,7 +178,7 @@ const sidebarProps = {
 };
 
   return (
-    <div className="flex h-[100dvh] w-full overflow-hidden">
+    <div className="flex h-[100dvh] w-full  overflow-hidden">
       {/* Desktop Sidebar */}
       <div className="hidden w-72 shrink-0 lg:flex xl:w-80">
         <SideBar {...sidebarProps} />
