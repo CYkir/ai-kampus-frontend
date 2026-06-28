@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 
 import PromptSuggestionCard from "./PromptSuggestionCard";
+import Robot from "../../assets/image/robot.png"
 
 const SUGGESTIONS = [
   { icon: GraduationCap, title: "Apa saja program studi di UNPRI?" },
@@ -22,11 +23,15 @@ const SUGGESTIONS = [
 const WelcomeChatState = ({ onPick }) => {
   return (
     <div className="mx-auto flex w-full max-w-3xl flex-col items-center px-4 py-8 sm:py-12">
-      <div className="relative mb-5">
+      <div className="relative">
         <div className="absolute inset-0 brand-gradient blur-2xl opacity-50 rounded-full" />
 
-        <div className="relative flex h-16 w-16 items-center justify-center rounded-3xl brand-gradient text-white shadow-[var(--shadow-glass)] ring-2 ring-white/40">
-          <Sparkles className="h-7 w-7" />
+        <div>
+          <img
+            src={Robot}
+            alt=""
+            className=" relative flex h-42 w-42  items-center justify-center rounded-3xl"
+          />
         </div>
       </div>
 
