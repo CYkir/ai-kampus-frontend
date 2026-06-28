@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { Copy, Check, Bot } from "lucide-react";
 
+import Linkify from "linkify-react";
+
 function formatTime(date) {
   if (!date) return "";
 
@@ -52,7 +54,15 @@ const ChatBubble = ({ message }) => {
         <div className="max-w-[85%] sm:max-w-[75%]">
           <div className="rounded-3xl rounded-tr-md bg-[#4b006e] px-4 py-3 text-white shadow-[var(--shadow-soft)]">
             <p className="whitespace-pre-wrap text-sm leading-relaxed">
-              {message.text}
+              <Linkify
+                options={{
+                  target: "_blank",
+                  rel: "noopener noreferrer",
+                  className: "underline italic underline-offset-2",
+                }}
+              >
+                {message.text}
+              </Linkify>
             </p>
           </div>
 
@@ -75,7 +85,17 @@ const ChatBubble = ({ message }) => {
       <div className="max-w-[85%] sm:max-w-[75%]">
         <div className="glass rounded-3xl rounded-tl-md px-4 py-3 shadow-[var(--shadow-soft)]">
           <p className="whitespace-pre-wrap text-sm leading-relaxed text-gray-800">
-            {botText}
+            <Linkify
+              options={{
+                target: "_blank",
+                rel: "noopener noreferrer",
+                className:
+                  "text-[#4b006e] underline italic underline-offset-2 hover:text-[#5C0D80]",
+              }}
+            >
+              {botText}
+            </Linkify>
+
             {shouldAnimate && botText.length < message.text.length && (
               <span className="ml-0.5 inline-block h-4 w-[2px] translate-y-0.5 animate-pulse bg-gray-500" />
             )}
