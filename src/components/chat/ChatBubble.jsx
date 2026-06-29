@@ -3,6 +3,8 @@ import { Copy, Check, Bot } from "lucide-react";
 
 import Linkify from "linkify-react";
 
+import BotProfil from '../../assets/image/bot_profil.webp'
+
 function formatTime(date) {
   if (!date) return "";
 
@@ -78,8 +80,8 @@ const ChatBubble = ({ message }) => {
 
   return (
     <div className="flex gap-3">
-      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-2xl brand-gradient text-white shadow-[var(--shadow-soft)]">
-        <Bot className="h-4 w-4" />
+      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl brand-gradient text-white shadow-[var(--shadow-soft)]">
+        <img src={BotProfil} alt="Bot-profile" />
       </div>
 
       <div className="max-w-[85%] sm:max-w-[75%]">
