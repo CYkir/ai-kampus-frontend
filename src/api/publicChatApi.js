@@ -23,7 +23,7 @@ export const sendPublicMessage = async (message) => {
       success: false,
       data:
         error?.response?.data?.detail ||
-        "Terjadi error dari server AI Kampus, Mohon coba lagi.",
+        "Terjadi error dari server AI Kampus, Mohon coba lagi nanti.",
       session_id: null,
     };
   }
