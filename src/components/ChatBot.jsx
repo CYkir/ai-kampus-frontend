@@ -107,6 +107,7 @@ const ChatBox = ({ selectedSessionId, onSessionChange, onRefreshSessions }) => {
         id: Date.now() + 1,
         role: "bot",
         text: res?.data || "Tidak ada respon dari AI",
+        thinking: res?.thinking || "",
         time: Date.now(),
         animate: true,
       };

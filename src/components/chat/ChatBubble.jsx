@@ -4,6 +4,7 @@ import { Copy, Check, Bot } from "lucide-react";
 import Linkify from "linkify-react";
 
 import BotProfil from '../../assets/image/bot_profil.webp'
+import ThinkingPanel from "./ThinkingPanel";
 
 function formatTime(date) {
   if (!date) return "";
@@ -18,6 +19,7 @@ function formatTime(date) {
 const ChatBubble = ({ message }) => {
   const [copied, setCopied] = useState(false);
   const [displayedText, setDisplayedText] = useState("");
+  // const [showThinking, setShowThinking] = useState(false);
 
   const isUser = message.role === "user";
   const shouldAnimate = !isUser && message.animate !== false;
@@ -85,6 +87,7 @@ const ChatBubble = ({ message }) => {
       </div>
 
       <div className="max-w-[85%] sm:max-w-[75%]">
+        <ThinkingPanel thinking={message.thinking} />
         <div className="glass rounded-3xl rounded-tl-md px-4 py-3 shadow-[var(--shadow-soft)]">
           <p className="whitespace-pre-wrap text-sm leading-relaxed text-gray-800">
             <Linkify
