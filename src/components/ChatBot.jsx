@@ -9,6 +9,7 @@ import WelcomeChatState from "./chat/WelcomeChatState";
 import ChatBubble from "./chat/ChatBubble";
 import ChatInput from "./chat/ChatInput";
 import TypingIndicator from "./chat/TypingIndicator";
+import ThinkingTrace from "./chat/ThinkingTrace";
 
 const ChatBox = ({ selectedSessionId, onSessionChange, onRefreshSessions }) => {
   const [messages, setMessages] = useState([]);
@@ -144,7 +145,9 @@ const ChatBox = ({ selectedSessionId, onSessionChange, onRefreshSessions }) => {
               <ChatBubble key={message.id} message={message} />
             ))}
 
-            {loading && <TypingIndicator />}
+            {/* {loading && <TypingIndicator />} */}
+
+            {loading && <ThinkingTrace />}
           </div>
         )}
       </div>
