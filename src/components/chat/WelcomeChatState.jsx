@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 
 import PromptSuggestionCard from "./PromptSuggestionCard";
-import Robot from "../../assets/image/robot.png"
+import Robot from "../../assets/image/robot.gif"
 
 const SUGGESTIONS = [
   { icon: GraduationCap, title: "Apa saja program studi di UNPRI?" },
@@ -30,7 +30,7 @@ const WelcomeChatState = ({ onPick }) => {
           <img
             src={Robot}
             alt=""
-            className=" relative flex h-42 w-42  items-center justify-center rounded-3xl"
+            className=" relative flex h-64 w-64 items-center justify-center rounded-3xl"
           />
         </div>
       </div>

@@ -3,7 +3,7 @@ import { Copy, Check, Bot } from "lucide-react";
 
 import Linkify from "linkify-react";
 
-import BotProfil from '../../assets/image/bot_profil.webp'
+import BotProfil from '../../assets/image/bot_profil.png'
 import ThinkingPanel from "./ThinkingPanel";
 
 function formatTime(date) {
