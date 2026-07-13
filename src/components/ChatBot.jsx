@@ -52,6 +52,7 @@ const ChatBox = ({ selectedSessionId, onSessionChange, onRefreshSessions }) => {
         id: msg.id,
         role: msg.role === "assistant" ? "bot" : "user",
         text: msg.message,
+        reasoning: msg.reasoning ?? null,
         time: msg.created_at,
         animate: false,
       }));
@@ -108,7 +109,7 @@ const ChatBox = ({ selectedSessionId, onSessionChange, onRefreshSessions }) => {
         id: Date.now() + 1,
         role: "bot",
         text: res?.data || "Tidak ada respon dari AI",
-        thinking: res?.thinking || "",
+        reasoning: res?.reasoning || null,
         time: Date.now(),
         animate: true,
       };

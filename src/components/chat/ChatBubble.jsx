@@ -4,7 +4,8 @@ import { Copy, Check, Bot } from "lucide-react";
 import Linkify from "linkify-react";
 
 import BotProfil from '../../assets/image/bot_profil.png'
-import ThinkingPanel from "./ThinkingPanel";
+import ReasoningPanel from "./ReasoningPanel";
+
 
 function formatTime(date) {
   if (!date) return "";
@@ -87,7 +88,7 @@ const ChatBubble = ({ message }) => {
       </div>
 
       <div className="max-w-[85%] sm:max-w-[75%]">
-        <ThinkingPanel thinking={message.thinking} />
+        <ReasoningPanel reasoning={message.reasoning} />
         <div className="glass rounded-3xl rounded-tl-md px-4 py-3 shadow-[var(--shadow-soft)]">
           <p className="whitespace-pre-wrap text-sm leading-relaxed text-gray-800">
             <Linkify

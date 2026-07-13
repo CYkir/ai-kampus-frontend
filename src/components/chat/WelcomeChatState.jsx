@@ -30,7 +30,7 @@ const WelcomeChatState = ({ onPick }) => {
           <img
             src={Robot}
             alt=""
-            className=" relative flex h-64 w-64 items-center justify-center rounded-3xl"
+            className=" relative flex h-80 w-80 items-center justify-center rounded-3xl"
           />
         </div>
       </div>
