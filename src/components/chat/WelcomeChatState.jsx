@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 
 import PromptSuggestionCard from "./PromptSuggestionCard";
-import Robot from "../../assets/image/robot.gif"
+import Robot from "../../assets/image/robot.gif";
 
 const SUGGESTIONS = [
   { icon: GraduationCap, title: "Apa saja program studi di UNPRI?" },
@@ -22,7 +22,7 @@ const SUGGESTIONS = [
 
 const WelcomeChatState = ({ onPick }) => {
   return (
-    <div className="mx-auto flex w-full max-w-3xl flex-col items-center px-4 py-8 sm:py-12">
+    <div className="mx-auto flex w-full max-w-5xl flex-col items-center px-6 py-8 md:py-14">
       <div className="relative">
         <div className="absolute inset-0 brand-gradient blur-2xl opacity-50 rounded-full" />
 
@@ -30,12 +30,20 @@ const WelcomeChatState = ({ onPick }) => {
           <img
             src={Robot}
             alt=""
-            className=" relative flex h-60 w-60 items-center justify-center rounded-3xl"
+            className="h-40 w-40 md:h-52 md:w-52 object-contain"
           />
         </div>
       </div>
 
-      <h1 className="text-center text-2xl sm:text-3xl font-bold tracking-tight text-gray-900">
+      <h1
+        className="mt-3
+                  text-center
+                  text-3xl
+                  font-bold
+                  tracking-tight
+                  text-gray-900
+                  sm:text-4xl"
+      >
         Selamat datang di{" "}
         <span className="bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
           AI Kampus Assistant
@@ -47,13 +55,22 @@ const WelcomeChatState = ({ onPick }) => {
         atau layanan UNPRI lainnya.
       </p>
 
-      <div className="mt-8 grid w-full grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      <div
+        className="mt-8
+                  grid
+                  w-full
+                  max-w-4xl
+                  grid-cols-1
+                  gap-4
+                  sm:grid-cols-2
+                  lg:grid-cols-3"
+      >
         {SUGGESTIONS.map((item) => (
           <PromptSuggestionCard
             key={item.title}
             icon={item.icon}
             title={item.title}
-            onClick={() => onPick(item.title)}
+            // onClick={() => onPick(item.title)}
           />
         ))}
       </div>

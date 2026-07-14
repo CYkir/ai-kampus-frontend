@@ -1,8 +1,25 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ArrowUp, Plus } from "lucide-react";
+
+const MAX_HEIGHT = 180;
 
 const ChatInput = ({ onSend, disabled }) => {
   const [value, setValue] = useState("");
+  const textareaRef = useRef(null);
+
+  // Auto resize seperti ChatGPT
+  useEffect(() => {
+    const textarea = textareaRef.current;
+    if (!textarea) return;
+
+    textarea.style.height = "0px";
+
+    const newHeight = Math.min(textarea.scrollHeight, MAX_HEIGHT);
+
+    textarea.style.height = `${newHeight}px`;
+    textarea.style.overflowY =
+      textarea.scrollHeight > MAX_HEIGHT ? "auto" : "hidden";
+  }, [value]);
 
   function submit(e) {
     e?.preventDefault();
@@ -36,13 +53,17 @@ const ChatInput = ({ onSend, disabled }) => {
           </button>
 
           <textarea
+            ref={textareaRef}
+            rows={1}
             value={value}
             onChange={(e) => setValue(e.target.value)}
             onKeyDown={onKey}
-            rows={1}
-            placeholder="Tanyakan sesuatu tentang kampus..."
-            className="flex-1 resize-none bg-transparent px-1 py-2.5 text-sm outline-none placeholder:text-gray-400 max-h-40"
-            style={{ minHeight: 40 }}
+            placeholder="Tanyakan sesuatu"
+            className="flex-1 resize-none bg-transparent py-[10px] text-[16px] leading-6 outline-none placeholder:text-gray-400"
+            style={{
+              maxHeight: `${MAX_HEIGHT}px`,
+              overflowY: "hidden",
+            }}
           />
 
           <button
